@@ -4,16 +4,46 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "npm-run-all --parallel watch:server start:client",
+    "start:client": "react-scripts start",
+    "start:server": "node src/server",
+    "watch:server": "nodemon --watch src/server src/server",
+    "test": "react-scripts test --env=jsdom"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/react": "^17.0.14",
+    "nodemon": "^2.0.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.3.5"
+  },
   "dependencies": {
+    "@types/typescript": "^2.0.0",
     "apollo-server-express": "^1.4.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
-    "graphql-tools": "^7.0.4"
+    "graphql-tools": "^7.0.4",
+    "npm-run-all": "^4.1.5",
+    "web-vitals": "^1.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
