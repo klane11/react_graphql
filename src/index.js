@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/client';
 
-import client from './server';
+import client from './client/apollo';
 import './index.css';
 import App from './client/App.tsx';
 
@@ -11,5 +11,3 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 );
-
-if (module.hot) module.hot.accept();

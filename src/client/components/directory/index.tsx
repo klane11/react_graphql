@@ -1,11 +1,35 @@
 import React, { useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
-import gql from 'graphql-tag';
+import { useLazyQuery, useQuery, gql } from '@apollo/client';
 
 import { Search } from './search';
+import { EmployeeCard } from './employee-card';
+
+interface EmployeeName {
+  first: string;
+  last: string;
+  title: string;
+};
+
+interface EmployeePicture {
+  thumbnail: string;
+}
+
+export interface Employee {
+  id: number;
+  name: EmployeeName;
+  email: string;
+  picture: EmployeePicture;
+};
+
+interface EmployeeData {
+  people: ReadonlyArray<Employee>;
+}
+interface EmployeeVars {
+  name: string;
+};
 
 const GET_EMPLOYEES = gql`
-  query GetEmployees() {
+  query GetEmployees {
     people {
       id
       name {
@@ -23,7 +47,7 @@ const GET_EMPLOYEES = gql`
 
 const GET_EMPLOYEE = gql`
   query GetEmployee($name: String!) {
-    people() {
+    people(name: $name) {
       id
       name {
         title
@@ -39,9 +63,9 @@ const GET_EMPLOYEE = gql`
 `;
 
 export const Directory = () => {
-  const [getEmployees, { loading, error, data }] = useLazyQuery(GET_EMPLOYEES);
-  const [searchEmployee, { loading: searchLoading, error: searchError, data: serachResult }] = useLazyQuery(GET_EMPLOYEE);
-
+  const { loading, error, data } = useQuery<EmployeeData, EmployeeVars>(GET_EMPLOYEES);
+  const [searchEmployee, { loading: searchLoading, error: searchError, data: serachResult }] = useLazyQuery<Employee, EmployeeVars>(GET_EMPLOYEE);
+  console.log({ data });
   const handleSearch = (searchValue: string) => {
     searchEmployee({ variables: { name: searchValue } });
   };
@@ -52,7 +76,7 @@ export const Directory = () => {
 
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
-      {data && <></>}
+      {data && data.people.map(employee => <EmployeeCard employee={employee} />)}
 
     </div>
   )

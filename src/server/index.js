@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
 const cors = require('cors');
 
 // initialize people datastore
@@ -32,8 +32,8 @@ req.end();
 
 // The GraphQL schema in string form
 const typeDefs = `
-  type Query { 
-      people: [Person] 
+  type Query {
+      people: [Person]
       person(id: ID!): Person
     }
   type Mutation {
