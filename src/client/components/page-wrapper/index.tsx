@@ -1,8 +1,12 @@
-import { Container, Navigation } from "./styles";
+
+import { Container, MainContainer } from "./styles";
+import { Navigation } from "./navigation";
 
 export const PageWrapper: React.FC = ({ children }) => (
   <Container>
     <Navigation />
-    {children}
+    <MainContainer>
+      {children}
+    </MainContainer>
   </Container>
 )

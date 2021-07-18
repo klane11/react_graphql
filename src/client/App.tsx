@@ -11,8 +11,8 @@ import { Directory } from './components/pages/directory';
 
 function App() {
   return (
-    <PageWrapper>
-      <Router>
+    <Router>
+      <PageWrapper>
         <Switch>
           <Route path="/directory">
             <Directory />
@@ -24,8 +24,8 @@ function App() {
             <Redirect to="/directory" />
           </Route>
         </Switch>
-      </Router>
-    </PageWrapper>
+      </PageWrapper>
+    </Router>
   );
 }
 
