@@ -1,10 +1,31 @@
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
-import { Directory } from './components/directory';
+import './App.css';
+import { PageWrapper } from "./components/page-wrapper";
+import { Directory } from './components/pages/directory';
 
 function App() {
   return (
-    <Directory />
+    <PageWrapper>
+      <Router>
+        <Switch>
+          <Route path="/directory">
+            <Directory />
+          </Route>
+          <Route path="/edit-employee">
+            <></>
+          </Route>
+          <Route path="/">
+            <Redirect to="/directory" />
+          </Route>
+        </Switch>
+      </Router>
+    </PageWrapper>
   );
 }
 

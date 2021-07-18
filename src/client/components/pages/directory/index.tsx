@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLazyQuery, useQuery, gql } from '@apollo/client';
 
+import { Container } from './styles';
 import { Search } from './search';
 import { EmployeeCard } from './employee-card';
 
@@ -65,19 +66,23 @@ const GET_EMPLOYEE = gql`
 export const Directory = () => {
   const { loading, error, data } = useQuery<EmployeeData, EmployeeVars>(GET_EMPLOYEES);
   const [searchEmployee, { loading: searchLoading, error: searchError, data: serachResult }] = useLazyQuery<Employee, EmployeeVars>(GET_EMPLOYEE);
-  console.log({ data });
+
   const handleSearch = (searchValue: string) => {
     searchEmployee({ variables: { name: searchValue } });
   };
 
   return (
-    <div>
+    <Container>
       <Search handleSearch={handleSearch} />
 
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
-      {data && data.people.map(employee => <EmployeeCard employee={employee} />)}
-
-    </div>
+      {data &&
+        data.people.map(employee =>
+          <EmployeeCard
+            employee={employee}
+            key={`employee-card-${employee.name.first}-${employee.name.last}`}
+          />)}
+    </Container>
   )
 }
