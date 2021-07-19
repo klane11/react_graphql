@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import { MockedProvider } from '@apollo/client/testing';
 
 import { Search } from '.';
-import { ShowAll, SearchBar } from './styles';
+import { ClearResults, SearchBar } from './styles';
 import { Button } from '../../../common/button';
 
 describe('Search Bar', () => {
@@ -20,15 +20,15 @@ describe('Search Bar', () => {
     expect(wrapper.find(Search).exists()).toBe(true);
   });
 
-  it('should show "Back" option', () => {
+  it('should show "Clear" option', () => {
     const wrapper = mountComponent();
 
-    expect(wrapper.find(ShowAll).exists()).toBe(false);
+    expect(wrapper.find(ClearResults).exists()).toBe(false);
     wrapper.find(SearchBar).simulate('change', { target: { value: 'Search term' } });
     wrapper.update();
 
-    expect(wrapper.find(ShowAll).exists()).toBe(true);
-    wrapper.find(ShowAll).simulate('click');
+    expect(wrapper.find(ClearResults).exists()).toBe(true);
+    wrapper.find(ClearResults).simulate('click');
 
     expect(mockClear).toHaveBeenCalled();
   });

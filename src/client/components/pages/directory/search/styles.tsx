@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding-left: 1em;
   padding-bottom: 2em;
+  border-bottom: 1px solid gray;
 `;
 
 export const SearchBar = styled.input`
@@ -11,11 +12,11 @@ export const SearchBar = styled.input`
   padding: .75em 2em;
 `;
 
-export const ShowAllContainer = styled.div`
+export const ClearResultsContainer = styled.div`
   height: 30px;
 `;
 
-export const ShowAll = styled.div`
+export const ClearResults = styled.div`
   font-size: 13px;
   padding-bottom: 1em;
   text-transform: uppercase;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ShowAllContainer, ShowAll, Container, SearchBar } from './styles';
+import { ClearResultsContainer, ClearResults, Container, SearchBar } from './styles';
 import { Button } from '../../../common/button';
 
 type SearchProps = {
@@ -13,18 +13,18 @@ export const Search = ({ handleSearch, handleClearSearch }: SearchProps) => {
 
   return (
     <Container>
-      <ShowAllContainer>
+      <ClearResultsContainer>
         {inputValue.length > 0 &&
-          <ShowAll
+          <ClearResults
             onClick={() => {
               setInputValue('');
               handleClearSearch()
             }}
           >
-            Show all employees
-          </ShowAll>
+            Clear search results
+          </ClearResults>
         }
-      </ShowAllContainer>
+      </ClearResultsContainer>
       <SearchBar
         value={inputValue}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}

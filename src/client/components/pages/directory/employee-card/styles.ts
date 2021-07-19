@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   padding: 1em;
   border-bottom: 1px solid gray;
-  margin: 1em;
 
   &:hover {
     background-color: rgba(50, 50, 50, .1);
