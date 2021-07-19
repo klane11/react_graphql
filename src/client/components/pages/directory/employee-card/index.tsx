@@ -3,13 +3,14 @@ import { Employee } from "../../../utils/types";
 
 interface EmployeeCardProps {
   employee: Employee;
+  onClick: (id: string) => void;
 };
 
-export const EmployeeCard = ({ employee }: EmployeeCardProps) => {
-  const { name, email, picture } = employee;
+export const EmployeeCard = ({ employee, onClick }: EmployeeCardProps) => {
+  const { name, email, picture, id } = employee;
 
   return (
-    <Container>
+    <Container onClick={() => onClick(id)}>
       <Thumbnail src={picture.thumbnail} />
       <Info>
         <div>{name.title} {name.first} {name.last}</div>

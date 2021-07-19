@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
-
-import { Container, Input, FormContainer } from './styles';
-import { EmployeeData, Employee } from '../../utils/types';
+import { useEffect, useState } from 'react';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
+
+import { ButtonContainer, Container, DataToShow, EmployeeStaticInfo, FormContainer, ProfileImage } from './styles';
+import { EmployeeData } from '../../utils/types';
+import { Input } from '../../common/input';
+import { Button } from '../../common/button';
 
 type EmployeeVars = {
   id: string;
@@ -14,6 +16,7 @@ type FormValues = {
   lastName: string;
   title: string;
   email: string;
+  id: string;
 };
 
 const GET_EMPLOYEE = gql`
@@ -28,21 +31,38 @@ const GET_EMPLOYEE = gql`
       email
       picture {
         thumbnail
+        large
+        medium
       }
+    }
+  }
+`;
+
+const UPDATE_EMPLOYEE = gql`
+  mutation UpdateEmployee($id: ID!, $payload: EditPerson!) {
+    editPerson(type: $type, payload: $payload) {
+      id
+      name {
+        title
+        first
+        last
+      }
+      email
     }
   }
 `;
 
 export const EditEmployee = () => {
   const location = useLocation();
+
   const [getEmployee, { loading, error, data }] = useLazyQuery<EmployeeData, EmployeeVars>(GET_EMPLOYEE);
+  const [editEmployee, { loading: saveLoad }] = useMutation(UPDATE_EMPLOYEE);
   const [formValues, setFormValues] = useState<FormValues | null>();
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const myParam = urlSearchParams.get('id');
-    // ensures that id param is number
-    if (myParam && Number(myParam)) {
+    if (myParam) {
       getEmployee({ variables: { id: myParam } });
     }
   }, []);
@@ -55,29 +75,83 @@ export const EditEmployee = () => {
         lastName: person.name.last,
         title: person.name.title,
         email: person.email,
+        id: person.id,
       });
     }
   }, [data]);
-  console.log(data);
 
-  const handleFormChange = (key: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (key: string, value: string) => {
     if (formValues) {
+      console.log(value)
       setFormValues({
         ...formValues,
-        [key]: e.target.value,
+        [key]: value,
       });
+    }
+  };
+
+  const handleSave = () => {
+    if (formValues) {
+      editEmployee({
+        variables: {
+          title: formValues.title,
+          first: formValues.firstName,
+          last: formValues.lastName,
+          email: formValues.email,
+        }
+      });
+      getEmployee({ variables: { id: formValues.id } });
     }
   };
 
   return (
     <Container>
+      {loading && <div>Loading....</div>}
+      {error && <div>Error: {error}</div>}
       {data &&
-        <FormContainer>
-          <Input value={formValues?.firstName} onChange={(e) => handleFormChange('firstName', e)} />
-          <Input value={formValues?.lastName} onChange={(e) => handleFormChange('lastName', e)} />
-          <Input value={formValues?.title} onChange={(e) => handleFormChange('title', e)} />
-          <Input value={formValues?.email} onChange={(e) => handleFormChange('email', e)} />
-        </FormContainer>
+        <DataToShow>
+          <ProfileImage src={data.person.picture.large} />
+          <EmployeeStaticInfo>
+            {data.person.name.title}{data.person.name.title && '.'}
+            {data.person.name.first}
+            {data.person.name.last}
+          </EmployeeStaticInfo>
+          <EmployeeStaticInfo>{data.person.email}</EmployeeStaticInfo>
+        </DataToShow>
+      }
+
+      {formValues &&
+        <>
+          <FormContainer>
+            <Input
+              type='text'
+              label='First Name'
+              value={formValues.firstName}
+              onChange={(value) => handleFormChange('firstName', value)}
+            />
+            <Input
+              type='text'
+              label='Last Name'
+              value={formValues.lastName}
+              onChange={(value) => handleFormChange('lastName', value)}
+            />
+            <Input
+              type='text'
+              label='Title'
+              value={formValues.title}
+              onChange={(value) => handleFormChange('title', value)}
+            />
+            <Input
+              type='text'
+              label='Email'
+              value={formValues.email}
+              onChange={(value) => handleFormChange('email', value)}
+            />
+          </FormContainer>
+          <ButtonContainer>
+            <Button width='175px' onSubmit={handleSave} saving={saveLoad}>Save</Button>
+          </ButtonContainer>
+        </>
       }
     </Container>
   );

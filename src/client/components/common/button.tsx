@@ -10,6 +10,8 @@ const ButtonStyles = styled.button<ButtonProps>`
   text-transform: uppercase;
   font-weight: bold;
 
+  min-width: ${props => props.width ? props.width : '75px'};
+
   ${props => props.disabled && `{
     background-color: gray;
     border: 1px solid gray;
@@ -28,9 +30,16 @@ type ButtonProps = {
   primary?: boolean;
   title?: string;
   disabled?: boolean;
-  onClick: () => void;
-} & React.HTMLProps<HTMLButtonElement>;
+  width?: string;
+  saving?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ onClick, primary = true, title = 'Save', disabled = false }: ButtonProps) =>
-  <ButtonStyles onClick={onClick} primary={primary} disabled={disabled}>{title}</ButtonStyles>;
+export const Button = ({ primary = true, title = 'Save', disabled = false, width, saving }: ButtonProps) =>
+  <ButtonStyles
+    primary={primary}
+    disabled={disabled}
+    width={width}
+  >
+    {saving ? 'Saving...' : title}
+  </ButtonStyles>;
 

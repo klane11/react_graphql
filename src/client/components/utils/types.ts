@@ -10,27 +10,29 @@ export type Loadable<T> =
   | { tag: 'error'; error: Error };
 
 
-export interface EmployeeName {
+export type EmployeeName = {
   first: string;
   last: string;
   title: string;
 };
 
-export interface EmployeePicture {
+export type EmployeePicture = {
   thumbnail: string;
+  large?: string;
+  medium?: string;
 }
 
-export interface Employee {
-  id: number;
+export type Employee = {
+  id: string;
   name: EmployeeName;
   email: string;
   picture: EmployeePicture;
 };
 
-export interface AllEmployeeData {
+export type AllEmployeeData = {
   people: ReadonlyArray<Employee>;
 }
 
-export interface EmployeeData {
+export type EmployeeData = {
   person: Employee;
 }

@@ -5,6 +5,7 @@ import { Container, EmployeeResultsContainer } from './styles';
 import { Search } from './search';
 import { EmployeeCard } from './employee-card';
 import { AllEmployeeData, Employee, Loadable } from '../../utils/types';
+import { useHistory } from 'react-router-dom';
 
 
 const GET_EMPLOYEES = gql`
@@ -25,11 +26,11 @@ const GET_EMPLOYEES = gql`
 `;
 
 export const Directory = () => {
+  const history = useHistory();
   const { loading, error, data } = useQuery<AllEmployeeData>(GET_EMPLOYEES);
   const [searchResults, setSearchResults] = useState<Loadable<Employee[]>>({ tag: 'idle' });
 
   const handleSearch = (searchValue: string) => {
-    console.log({ searchValue });
     setSearchResults({ tag: 'loading' });
     let employees: Employee[] | undefined = undefined;
     if (data) {
@@ -46,6 +47,10 @@ export const Directory = () => {
     return setSearchResults({ tag: 'error', error: new Error('No results matching query') })
   };
 
+  const handleCardClick = (id: string) => {
+    history.push(`/edit-employee?id=${id}`);
+  }
+
   return (
     <Container>
       <Search handleSearch={handleSearch} handleClearSearch={() => setSearchResults({ tag: 'idle' })} />
@@ -59,6 +64,7 @@ export const Directory = () => {
             {data &&
               data.people.map(employee =>
                 <EmployeeCard
+                  onClick={handleCardClick}
                   employee={employee}
                   key={`employee-card-${employee.name.first}-${employee.name.last}`}
                 />)}
@@ -72,6 +78,7 @@ export const Directory = () => {
             {searchResults.tag === 'success' &&
               searchResults.data.map(employee =>
                 <EmployeeCard
+                  onClick={handleCardClick}
                   employee={employee}
                   key={`employee-card-${employee.name.first}-${employee.name.last}`}
                 />)}

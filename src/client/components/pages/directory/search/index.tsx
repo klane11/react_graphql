@@ -27,7 +27,7 @@ export const Search = ({ handleSearch, handleClearSearch }: SearchProps) => {
         placeholder='Search first and/or last name'
       />
       <Button
-        onClick={() => {console.log('clicked'); handleSearch(inputValue)}}
+        onClick={() => handleSearch(inputValue)}
         title='Search'
         disabled={inputValue.length < 1}
       />
