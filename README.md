@@ -35,4 +35,3 @@ https://localhost:3000/directory
     * The employee list could grow creating slower search results.
     * If server side pagination was introduced, we would no longer have all employee data to search from.
     * We could expand our search criteria. ex: ability to search by email
-5. Add a theme component
