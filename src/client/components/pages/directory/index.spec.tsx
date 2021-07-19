@@ -7,10 +7,8 @@ import wait from 'waait';
 import { Directory } from '.';
 import { EmployeeCard } from './employee-card';
 import { Search } from './search';
-import { Employee } from '../../utils/types';
-import { Container, EmployeeResultsContainer } from './styles';
+import { Container } from './styles';
 import { GET_EMPLOYEES } from '.';
-import { nextProcess } from '../../utils/test-helpers';
 import { Button } from '../../common/button';
 import { SearchBar } from './search/styles';
 

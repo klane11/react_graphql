@@ -1,7 +1,7 @@
 
 import { matchPath, useLocation } from 'react-router-dom';
 
-import { Container, MainContainer, NavigationContainer, LogoContainer, Logo, NavigationItemContainer } from "./styles";
+import { Container, MainContainer, NavigationContainer, SubNavigationItemContainer, LogoContainer, Logo, NavigationItemContainer } from "./styles";
 import FullLogo from '../../assets/full_logo.png';
 
 
@@ -15,7 +15,18 @@ const NavigationItem = ({ name, path, isSelected }: NavigationItemProps) => (
   <NavigationItemContainer to={path} selected={isSelected}>
     {name}
   </NavigationItemContainer>
-)
+);
+
+type SubNavigationProps = {
+  name: string;
+  isSelected: boolean;
+};
+
+const SubNavigation = ({ name, isSelected }: SubNavigationProps) => (
+  <SubNavigationItemContainer selected={isSelected}>
+    {name}
+  </SubNavigationItemContainer>
+);
 
 export const Navigation = () => {
   const { pathname } = useLocation();
@@ -27,7 +38,7 @@ export const Navigation = () => {
         <Logo src={FullLogo} />
       </LogoContainer>
       <NavigationItem name='Directory' path='/directory' isSelected={isSelected('/directory')} />
-      <NavigationItem name='Edit Employee' path='/edit-employee' isSelected={isSelected('/edit-employee')} />
+      <SubNavigation name='Edit Employee' isSelected={isSelected('/edit-employee')} />
     </NavigationContainer>
   )
 }

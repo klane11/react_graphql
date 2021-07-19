@@ -60,7 +60,7 @@ export const Directory = () => {
         {searchResults.tag === 'idle' &&
           <>
             {loading && <div>Loading...</div>}
-            {error && <div>Error: {error}</div>}
+            {error && <div>Error: {error.message}</div>}
             {data &&
               data.people.map(employee =>
                 <EmployeeCard

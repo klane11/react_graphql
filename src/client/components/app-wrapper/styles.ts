@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
@@ -35,17 +35,28 @@ type NavigationItemContainerProps = {
   selected: boolean;
 }
 
-export const NavigationItemContainer = styled(NavLink) <NavigationItemContainerProps>`
+const NavItem = css`
   color: white;
   text-decoration: none;
   border-bottom: 1px solid white;
   width: 100%;
   padding: 1em;
+`;
 
+export const NavigationItemContainer = styled(NavLink) <NavigationItemContainerProps>`
+  ${NavItem}
   &:hover {
     background-color: rgba(250, 250, 250, 30%);
   }
 
+  ${props => props.selected && `
+    background-color: rgba(250, 250, 250, 30%);
+  `}
+`;
+
+export const SubNavigationItemContainer = styled.div<NavigationItemContainerProps>`
+  ${NavItem}
+  padding-left: 3em;
   ${props => props.selected && `
     background-color: rgba(250, 250, 250, 30%);
   `}

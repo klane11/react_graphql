@@ -1,9 +1,8 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from '@apollo/client/testing';
-import { act } from 'react-dom/test-utils';
 
 import { Search } from '.';
-import { ShowAll, Container, SearchBar } from './styles';
+import { ShowAll, SearchBar } from './styles';
 import { Button } from '../../../common/button';
 
 describe('Search Bar', () => {
