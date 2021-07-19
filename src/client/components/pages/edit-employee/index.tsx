@@ -19,7 +19,7 @@ type FormValues = {
   id: string;
 };
 
-const GET_EMPLOYEE = gql`
+export const GET_EMPLOYEE = gql`
   query GetEmployee($id: ID!) {
     person(id: $id) {
       id
@@ -40,7 +40,7 @@ const GET_EMPLOYEE = gql`
 
 const UPDATE_EMPLOYEE = gql`
   mutation UpdateEmployee($id: ID!, $payload: EditPerson!) {
-    editPerson(type: $type, payload: $payload) {
+    editPerson(id: $id, payload: $payload) {
       id
       name {
         title
@@ -94,13 +94,15 @@ export const EditEmployee = () => {
     if (formValues) {
       editEmployee({
         variables: {
-          title: formValues.title,
-          first: formValues.firstName,
-          last: formValues.lastName,
-          email: formValues.email,
+          id: formValues.id,
+          payload: {
+            title: formValues.title,
+            first: formValues.firstName,
+            last: formValues.lastName,
+            email: formValues.email,
+          }
         }
       });
-      getEmployee({ variables: { id: formValues.id } });
     }
   };
 
@@ -112,17 +114,18 @@ export const EditEmployee = () => {
         <DataToShow>
           <ProfileImage src={data.person.picture.large} />
           <EmployeeStaticInfo>
-            {data.person.name.title}{data.person.name.title && '.'}
-            {data.person.name.first}
-            {data.person.name.last}
+            {data.person.name.title}{data.person.name.title && '.'} {data.person.name.first} {data.person.name.last}
           </EmployeeStaticInfo>
           <EmployeeStaticInfo>{data.person.email}</EmployeeStaticInfo>
         </DataToShow>
       }
 
       {formValues &&
-        <>
-          <FormContainer>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSave();
+        }}>
+          <FormContainer >
             <Input
               type='text'
               label='First Name'
@@ -149,9 +152,9 @@ export const EditEmployee = () => {
             />
           </FormContainer>
           <ButtonContainer>
-            <Button width='175px' onSubmit={handleSave} saving={saveLoad}>Save</Button>
+            <Button type='submit' width='175px' saving={saveLoad}>Save</Button>
           </ButtonContainer>
-        </>
+        </form>
       }
     </Container>
   );

@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 2em;

@@ -32,13 +32,15 @@ type ButtonProps = {
   disabled?: boolean;
   width?: string;
   saving?: boolean;
+  onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ primary = true, title = 'Save', disabled = false, width, saving }: ButtonProps) =>
+export const Button = ({ primary = true, title = 'Save', disabled = false, width, saving, onClick }: ButtonProps) =>
   <ButtonStyles
     primary={primary}
     disabled={disabled}
     width={width}
+    onClick={onClick}
   >
     {saving ? 'Saving...' : title}
   </ButtonStyles>;

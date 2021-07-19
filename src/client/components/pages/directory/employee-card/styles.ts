@@ -12,10 +12,12 @@ export const Container = styled.div`
   }
 `;
 
-export const Info = styled.div`
+export const InfoContainer = styled.div`
   display: grid;
   column-gap: 1em;
 `;
+
+export const Info = styled.div``;
 
 export const Thumbnail = styled.img`
   border-radius: 100%;

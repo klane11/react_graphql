@@ -8,26 +8,26 @@ import FullLogo from '../../assets/full_logo.png';
 type NavigationItemProps = {
   name: string;
   path: string;
-  isActive: boolean;
+  isSelected: boolean;
 };
 
-const NavigationItem = ({ name, path, isActive }: NavigationItemProps) => (
-  <NavigationItemContainer to={path} isActive={isActive}>
+const NavigationItem = ({ name, path, isSelected }: NavigationItemProps) => (
+  <NavigationItemContainer to={path} selected={isSelected}>
     {name}
   </NavigationItemContainer>
 )
 
 export const Navigation = () => {
   const { pathname } = useLocation();
-  const isActive = (path: string) => !!matchPath(pathname, path);
+  const isSelected = (path: string) => !!matchPath(pathname, path);
 
   return (
     <NavigationContainer>
       <LogoContainer>
         <Logo src={FullLogo} />
       </LogoContainer>
-      <NavigationItem name='Directory' path='/' isActive={isActive('/')} />
-      <NavigationItem name='Edit Employee' path='/edit-employee' isActive={isActive('/edit-employee')} />
+      <NavigationItem name='Directory' path='/directory' isSelected={isSelected('/directory')} />
+      <NavigationItem name='Edit Employee' path='/edit-employee' isSelected={isSelected('/edit-employee')} />
     </NavigationContainer>
   )
 }

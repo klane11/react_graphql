@@ -11,7 +11,11 @@ export const SearchBar = styled.input`
   padding: .75em 2em;
 `;
 
-export const BackToAll = styled.div`
+export const ShowAllContainer = styled.div`
+  height: 30px;
+`;
+
+export const ShowAll = styled.div`
   font-size: 13px;
   padding-bottom: 1em;
   text-transform: uppercase;

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import { Container, EmployeeResultsContainer } from './styles';
 import { Search } from './search';
 import { EmployeeCard } from './employee-card';
 import { AllEmployeeData, Employee, Loadable } from '../../utils/types';
-import { useHistory } from 'react-router-dom';
 
 
-const GET_EMPLOYEES = gql`
+export const GET_EMPLOYEES = gql`
   query GetEmployees {
     people {
       id
@@ -49,7 +49,7 @@ export const Directory = () => {
 
   const handleCardClick = (id: string) => {
     history.push(`/edit-employee?id=${id}`);
-  }
+  };
 
   return (
     <Container>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   display: grid;
@@ -32,10 +32,10 @@ export const Logo = styled.img`
 `;
 
 type NavigationItemContainerProps = {
-  isActive: boolean;
+  selected: boolean;
 }
 
-export const NavigationItemContainer = styled(Link) <NavigationItemContainerProps>`
+export const NavigationItemContainer = styled(NavLink) <NavigationItemContainerProps>`
   color: white;
   text-decoration: none;
   border-bottom: 1px solid white;
@@ -46,7 +46,7 @@ export const NavigationItemContainer = styled(Link) <NavigationItemContainerProp
     background-color: rgba(250, 250, 250, 30%);
   }
 
-  ${props => props.isActive && `
+  ${props => props.selected && `
     background-color: rgba(250, 250, 250, 30%);
   `}
 `;
