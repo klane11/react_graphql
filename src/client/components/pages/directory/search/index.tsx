@@ -14,6 +14,7 @@ export const Search = ({ handleSearch, handleClearSearch }: SearchProps) => {
   return (
     <Container>
       <ClearResultsContainer>
+        {/* Allows user to easily clear search results */}
         {inputValue.length > 0 &&
           <ClearResults
             onClick={() => {

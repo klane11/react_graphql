@@ -32,7 +32,7 @@ export const Directory = () => {
 
   const handleSearch = (searchValue: string) => {
     setSearchResults({ tag: 'loading' });
-    let employees: Employee[] | undefined = undefined;
+    let employees: Employee[] = [];
     if (data) {
       // filters data to find all employees first and last name that match the search value
       employees = data.people.filter(x =>
@@ -40,7 +40,7 @@ export const Directory = () => {
       );
     }
 
-    if (employees && employees.length) {
+    if (employees.length) {
       return setSearchResults({ tag: 'success', data: employees });
     }
 

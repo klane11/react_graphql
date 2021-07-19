@@ -26,7 +26,7 @@ export const DataToShow = styled.div`
   row-gap: .5em;
   padding-bottom: 2em;
   margin-bottom: 2em;
-  border-bottom: 1px solid #fe27b5;
+  border-bottom: 1px solid ${props => props.theme.pink.primary};
 `;
 
 export const EmployeeStaticInfo = styled.div`

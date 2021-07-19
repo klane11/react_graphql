@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const ButtonStyles = styled.button<ButtonProps>`
-  background-color: ${props => props.primary ? '#fe27b5' : 'white'};
-  border: 1px solid #fe27b5;
+  background-color: ${props => props.primary ? props.theme.pink.primary : 'white'};
+  border: 1px solid ${props => props.theme.pink.primary};
   border-radius: 3px;
-  color: ${props => props.primary ? 'white' : '#fe27b5'};
+  color: ${props => props.primary ? 'white' : props.theme.pink.primary};
   box-shadow: 2px 3px 3px rgba(0, 0, 0, .2);
   padding: .75em 2em;
   text-transform: uppercase;
@@ -13,8 +13,8 @@ const ButtonStyles = styled.button<ButtonProps>`
   min-width: ${props => props.width ? props.width : '75px'};
 
   ${props => props.disabled && `{
-    background-color: gray;
-    border: 1px solid gray;
+    background-color: ${props.theme.gray.background};
+    border: 1px solid ${props.theme.gray.border};
   }`}
 
   &:hover {

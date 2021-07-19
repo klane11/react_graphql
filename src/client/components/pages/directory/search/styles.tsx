@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding-left: 1em;
   padding-bottom: 2em;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid ${props => props.theme.gray.border};
 `;
 
 export const SearchBar = styled.input`
@@ -22,7 +22,7 @@ export const ClearResults = styled.div`
   text-transform: uppercase;
 
   &:hover {
-    color: #fe27b5;
+    color: ${props => props.theme.pink.primary};
     cursor: pointer;
   }
 `;
