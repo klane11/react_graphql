@@ -2,7 +2,7 @@
 import { Container, MainContainer } from "./styles";
 import { Navigation } from "./navigation";
 
-export const PageWrapper: React.FC = ({ children }) => (
+export const AppWrapper: React.FC = ({ children }) => (
   <Container>
     <Navigation />
     <MainContainer>

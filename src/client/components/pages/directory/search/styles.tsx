@@ -1,9 +1,23 @@
 import styled from 'styled-components';
 
-
-export const SearchBar = styled.input`
-  height: 30px;
+export const Container = styled.div`
+  padding-left: 1em;
+  padding-bottom: 2em;
 `;
 
-export const SearchButton = styled.button`
+export const SearchBar = styled.input`
+  width: 30%;
+  margin-right: 1em;
+  padding: .75em 2em;
+`;
+
+export const BackToAll = styled.div`
+  font-size: 13px;
+  padding-bottom: 1em;
+  text-transform: uppercase;
+
+  &:hover {
+    color: #fe27b5;
+    cursor: pointer;
+  }
 `;

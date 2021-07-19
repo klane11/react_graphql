@@ -1,12 +1,12 @@
-import { Employee } from "..";
 import { Container, Info, Thumbnail } from "./styles";
+import { Employee } from "../../../utils/types";
 
 interface EmployeeCardProps {
   employee: Employee;
 };
 
 export const EmployeeCard = ({ employee }: EmployeeCardProps) => {
-  const { name, id, email, picture } = employee;
+  const { name, email, picture } = employee;
 
   return (
     <Container>

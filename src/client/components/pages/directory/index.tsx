@@ -1,33 +1,11 @@
 import React, { useState } from 'react';
-import { useLazyQuery, useQuery, gql } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 
-import { Container } from './styles';
+import { Container, EmployeeResultsContainer } from './styles';
 import { Search } from './search';
 import { EmployeeCard } from './employee-card';
+import { AllEmployeeData, Employee, Loadable } from '../../utils/types';
 
-interface EmployeeName {
-  first: string;
-  last: string;
-  title: string;
-};
-
-interface EmployeePicture {
-  thumbnail: string;
-}
-
-export interface Employee {
-  id: number;
-  name: EmployeeName;
-  email: string;
-  picture: EmployeePicture;
-};
-
-interface EmployeeData {
-  people: ReadonlyArray<Employee>;
-}
-interface EmployeeVars {
-  name: string;
-};
 
 const GET_EMPLOYEES = gql`
   query GetEmployees {
@@ -46,43 +24,60 @@ const GET_EMPLOYEES = gql`
   }
 `;
 
-const GET_EMPLOYEE = gql`
-  query GetEmployee($name: String!) {
-    people(name: $name) {
-      id
-      name {
-        title
-        first
-        last
-      }
-      email
-      picture {
-        thumbnail
-      }
-    }
-  }
-`;
-
 export const Directory = () => {
-  const { loading, error, data } = useQuery<EmployeeData, EmployeeVars>(GET_EMPLOYEES);
-  const [searchEmployee, { loading: searchLoading, error: searchError, data: serachResult }] = useLazyQuery<Employee, EmployeeVars>(GET_EMPLOYEE);
+  const { loading, error, data } = useQuery<AllEmployeeData>(GET_EMPLOYEES);
+  const [searchResults, setSearchResults] = useState<Loadable<Employee[]>>({ tag: 'idle' });
 
   const handleSearch = (searchValue: string) => {
-    searchEmployee({ variables: { name: searchValue } });
+    console.log({ searchValue });
+    setSearchResults({ tag: 'loading' });
+    let employees: Employee[] | undefined = undefined;
+    if (data) {
+      // filters data to find all employees first and last name that match the search value
+      employees = data.people.filter(x =>
+        `${x.name.first.toLowerCase()} ${x.name.last.toLowerCase()}`.includes(searchValue.toLowerCase())
+      );
+    }
+
+    if (employees && employees.length) {
+      return setSearchResults({ tag: 'success', data: employees });
+    }
+
+    return setSearchResults({ tag: 'error', error: new Error('No results matching query') })
   };
 
   return (
     <Container>
-      <Search handleSearch={handleSearch} />
+      <Search handleSearch={handleSearch} handleClearSearch={() => setSearchResults({ tag: 'idle' })} />
 
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
-      {data &&
-        data.people.map(employee =>
-          <EmployeeCard
-            employee={employee}
-            key={`employee-card-${employee.name.first}-${employee.name.last}`}
-          />)}
+      <EmployeeResultsContainer>
+        {/* all employees */}
+        {searchResults.tag === 'idle' &&
+          <>
+            {loading && <div>Loading...</div>}
+            {error && <div>Error: {error}</div>}
+            {data &&
+              data.people.map(employee =>
+                <EmployeeCard
+                  employee={employee}
+                  key={`employee-card-${employee.name.first}-${employee.name.last}`}
+                />)}
+          </>
+        }
+        {/* search result(s) */}
+        {searchResults.tag !== 'idle' &&
+          <>
+            {searchResults.tag === 'loading' && <div>Loading...</div>}
+            {searchResults.tag === 'error' && <div>Cannot find any employees with that name. Please retry search.</div>}
+            {searchResults.tag === 'success' &&
+              searchResults.data.map(employee =>
+                <EmployeeCard
+                  employee={employee}
+                  key={`employee-card-${employee.name.first}-${employee.name.last}`}
+                />)}
+          </>
+        }
+      </EmployeeResultsContainer>
     </Container>
   )
 }

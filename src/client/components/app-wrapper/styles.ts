@@ -4,10 +4,11 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 200px auto;
   overflow: hidden;
-  max-height: 100vh;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 `;
 
 export const MainContainer = styled.div`
-  overflow: scroll;
+  height: 100%;
+  overflow: hidden;
 `;

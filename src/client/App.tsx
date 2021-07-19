@@ -6,25 +6,26 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import { PageWrapper } from "./components/page-wrapper";
+import { AppWrapper } from "./components/app-wrapper";
 import { Directory } from './components/pages/directory';
+import { EditEmployee } from "./components/pages/edit-employee";
 
 function App() {
   return (
     <Router>
-      <PageWrapper>
+      <AppWrapper>
         <Switch>
           <Route path="/directory">
             <Directory />
           </Route>
           <Route path="/edit-employee">
-            <></>
+            <EditEmployee />
           </Route>
           <Route path="/">
             <Redirect to="/directory" />
           </Route>
         </Switch>
-      </PageWrapper>
+      </AppWrapper>
     </Router>
   );
 }
