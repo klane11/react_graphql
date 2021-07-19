@@ -1,4 +1,4 @@
-# Firstbase Frontend Coding Challenge
+# React, Typescript and GraphQL project
 
 ### Use Cases
 * As a user I should be able to view the entire employee directory
