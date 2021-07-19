@@ -9,6 +9,8 @@ import { ButtonContainer, Container, DataToShow, EmployeeStaticInfo, FormContain
 import { Employee } from '../../utils/types';
 import { Input } from '../../common/input';
 import { Button } from '../../common/button';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../../theme';
 
 
 const employee: Employee = {
@@ -83,7 +85,9 @@ describe('Edit Employee', () => {
     mount(
       <MockedProvider mocks={mocks}>
         <MemoryRouter initialEntries={[`/edit-employee?id=${employee.id}`]}>
-          <EditEmployee />
+          <ThemeProvider theme={theme}>
+            <EditEmployee />
+          </ThemeProvider>
         </MemoryRouter>
       </MockedProvider>
     );

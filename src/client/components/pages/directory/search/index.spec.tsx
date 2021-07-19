@@ -1,9 +1,11 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from '@apollo/client/testing';
+import { ThemeProvider } from "styled-components";
 
 import { Search } from '.';
 import { ClearResults, SearchBar } from './styles';
 import { Button } from '../../../common/button';
+import { theme } from '../../../../theme';
 
 describe('Search Bar', () => {
   const mockSearch = jest.fn();
@@ -11,7 +13,9 @@ describe('Search Bar', () => {
   const mountComponent = () =>
     mount(
       <MockedProvider>
-        <Search handleClearSearch={mockClear} handleSearch={mockSearch} />
+        <ThemeProvider theme={theme}>
+          <Search handleClearSearch={mockClear} handleSearch={mockSearch} />
+        </ThemeProvider>
       </MockedProvider>
     );
 

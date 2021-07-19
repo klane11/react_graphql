@@ -1,10 +1,12 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from '@apollo/client/testing';
+import { ThemeProvider } from "styled-components";
 
 import { EmployeeCard } from '.';
 import { Employee } from '../../../utils/types';
 import { Container, Info, InfoContainer, Thumbnail } from "./styles";
 import { GET_EMPLOYEES } from '..';
+import { theme } from '../../../../theme';
 
 const mockEmployee: Employee = {
   id: '1',
@@ -38,7 +40,9 @@ describe('Employee Card', () => {
   const mountComponent = () =>
     mount(
       <MockedProvider mocks={mocks}>
-        <EmployeeCard employee={mockEmployee} onClick={mockClick} />
+        <ThemeProvider theme={theme}>
+          <EmployeeCard employee={mockEmployee} onClick={mockClick} />
+        </ThemeProvider>
       </MockedProvider>
     );
 

@@ -3,6 +3,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import wait from 'waait';
+import { ThemeProvider } from "styled-components";
 
 import { Directory } from '.';
 import { EmployeeCard } from './employee-card';
@@ -11,6 +12,7 @@ import { Container } from './styles';
 import { GET_EMPLOYEES } from '.';
 import { Button } from '../../common/button';
 import { SearchBar } from './search/styles';
+import { theme } from '../../../theme';
 
 const createEmployee = (id: string) => ({
   id,
@@ -55,7 +57,9 @@ describe('Directory', () => {
     mount(
       <MockedProvider mocks={mocks}>
         <MemoryRouter>
-          <Directory />
+          <ThemeProvider theme={theme}>
+            <Directory />
+          </ThemeProvider>
         </MemoryRouter>
       </MockedProvider>
     );

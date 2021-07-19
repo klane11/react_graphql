@@ -14,8 +14,8 @@ import { theme } from './theme';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
+    <Router>
+      <ThemeProvider theme={theme}>
         <AppWrapper>
           <Switch>
             <Route path="/directory">
@@ -29,8 +29,8 @@ function App() {
             </Route>
           </Switch>
         </AppWrapper>
-      </Router>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Router>
   );
 }
 

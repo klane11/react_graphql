@@ -8,7 +8,7 @@
     "start:client": "react-scripts start",
     "start:server": "node src/server",
     "watch:server": "nodemon --watch src/server src/server",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom --watchAll"
   },
   "author": "",
   "license": "ISC",
